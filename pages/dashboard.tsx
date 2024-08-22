@@ -18,7 +18,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg mt-20 z-10">
           {/* Top Left Card */}
-          <div className="bg-white bg-opacity-80 backdrop-blur-lg p-6 rounded-lg flex flex-col space-y-4 shadow-md">
+          <div className="p-6 flex flex-col space-y-4">
             <h2 className="text-4xl font-bold">Welcome back.</h2>
             <p className="pl-4 text-sm text-gray-600">Track, Reduce, and Thrive with AI-Powered Carbon Insights.</p>
           </div>
@@ -57,7 +57,7 @@ export default function Home() {
                 placeholder="Enter a question"
                 className="flex-1 p-2 border border-gray-300 rounded-md"
               />
-              <button className="bg-blue-500 text-white p-2 rounded-md">Send</button>
+              <button className="bg-green-500 text-white p-2 rounded-md">Send</button>
             </div>
             <p className="text-sm text-gray-600">AI's answer</p>
           </div>
