@@ -1,26 +1,43 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { IconButton } from '@mui/material';
 import { FaCamera } from 'react-icons/fa';
+import CameraCapture from './CameraCapture';
+import Popup from '@/components/ui/popup';
 
 export default function DietRow() {
-  const [meals, setMeals] = useState<{ id: number; name: string; details: string }[]>([]);
-  const [newMealName, setNewMealName] = useState('');
+  const [meals, setMeals] = useState<{ id: number; details: string }[]>([]);
   const [newMealDetails, setNewMealDetails] = useState('');
   const [nextId, setNextId] = useState(1);
+  const [showCamera, setShowCamera] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
 
-  const addMeal = () => {
-    if (newMealName && newMealDetails) {
-      setMeals([...meals, { id: nextId, name: newMealName, details: newMealDetails }]);
+  const addMeal = (details: string) => {
+    if (details.trim()) {
+      setMeals([...meals, { id: nextId, details }]);
       setNextId(nextId + 1);
-      setNewMealName('');
-      setNewMealDetails('');
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      addMeal();
+      e.preventDefault();
+      addMeal(newMealDetails);
+      setNewMealDetails('');
+    }
+  };
+
+  const handleCapture = async (analysisResult: string) => {
+    try {
+      const mealDescription = analysisResult.trim();
+      console.log(mealDescription)
+      if (mealDescription === "X") {
+        setShowErrorPopup(true);
+      } else {
+        addMeal(mealDescription);
+      }
+    } catch (error) {
+      console.error('Error handling captured image result', error);
     }
   };
 
@@ -50,21 +67,32 @@ export default function DietRow() {
           </button>
         </Tooltip>
         <IconButton
-          onClick={addMeal}
+          onClick={() => setShowCamera(true)}
           className="bg-blue-500 hover:bg-blue-700 text-white"
           aria-label="Add Meal"
         >
           <FaCamera />
         </IconButton>
       </div>
+      {showCamera && <CameraCapture onCapture={handleCapture} />}
       <input
         type="text"
-        placeholder="Add Meal"
+        placeholder="Hit enter to manually add a meal"
         value={newMealDetails}
         onChange={(e) => setNewMealDetails(e.target.value)}
         onKeyDown={handleKeyDown}
         className="mt-2 p-2 border border-gray-300 rounded-md"
       />
+      {showErrorPopup && (
+        <Popup
+          title="Error"
+          message="Sorry, that is not a food product."
+          onConfirm={() => setShowErrorPopup(false)}
+          onCancel={() => setShowErrorPopup(false)}
+          isOpen={showErrorPopup}
+          onClose={() => setShowErrorPopup(false)}
+        />
+      )}
     </div>
   );
 }

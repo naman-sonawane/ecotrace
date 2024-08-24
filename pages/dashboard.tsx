@@ -43,7 +43,7 @@ export default function Home() {
             <h2 className="text-xl text-gray-600 font-bold">Your Carbon Footprint</h2>
             <p className="text-2xl font-bold">2,345</p>
             <p className="text-lg text-gray-600">kilograms of carbon per year</p>
-            <p className="text-sm text-gray-400">That’s equivalent to driving a gasoline-powered car for about 800 miles. 🚗</p>
+            <p className="text-sm text-gray-400">That&apos;s equivalent to driving a gasoline-powered car for about 800 miles. 🚗</p>
             <p className="text-sm font-semibold">Your Carbon Footprint is <strong className="text-green-600">below average</strong>.</p>
           </div>
 
@@ -59,7 +59,7 @@ export default function Home() {
               />
               <button className="bg-green-500 text-white p-2 rounded-md">Send</button>
             </div>
-            <p className="text-sm text-gray-600">AI's answer</p>
+            <p className="text-sm text-gray-600">AI&apos;s answer</p>
           </div>
         </div>
       </main>
