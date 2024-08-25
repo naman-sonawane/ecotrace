@@ -1,4 +1,3 @@
-// cameracapture.js
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -57,7 +56,8 @@ export default function CameraCapture({ onCapture }) {
         formData.append('file', file);
 
         try {
-          const response = await axios.post('http://localhost:5000/analyze-image', formData, {
+          // Update this URL with your Vercel deployment URL
+          const response = await axios.post('https://your-project-name.vercel.app/api/vback', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -90,22 +90,21 @@ export default function CameraCapture({ onCapture }) {
   return (
     <div>
       <video ref={videoRef} width="640" height="480" autoPlay />
-      <div class="flex space-x-4 pt-4">
-  <button 
-    onClick={captureImage} 
-    class="bg-gradient-to-r from-emerald-300 to-green-500 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-300"
-  >
-    Capture
-  </button>
+      <div className="flex space-x-4 pt-4">
+        <button 
+          onClick={captureImage} 
+          className="bg-gradient-to-r from-emerald-300 to-green-500 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-300"
+        >
+          Capture
+        </button>
 
-  <button 
-    onClick={stopCamera} 
-    class="bg-gradient-to-r from-red-300 to-red-500 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-300"
-  >
-    Stop
-  </button>
-</div>
-
+        <button 
+          onClick={stopCamera} 
+          className="bg-gradient-to-r from-red-300 to-red-500 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-300"
+        >
+          Stop
+        </button>
+      </div>
     </div>
   );
 }
