@@ -48,29 +48,33 @@ export default function CameraCapture({ onCapture }) {
 
       // Convert canvas content to Blob for sending to server
       canvas.toBlob(async (blob) => {
+        if (!blob) {
+          console.error('Error creating blob');
+          return;
+        }
+
         // Convert Blob to JPEG
         const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
 
-        // Send the image to the server
-        const formData = new FormData();
-        formData.append('file', file);
-
+        // Upload the file to Vercel Blob (client-side upload)
         try {
-          // Update this URL with your Vercel deployment URL
-          const response = await axios.post('https://your-project-name.vercel.app/api/vback', formData, {
+          const formData = new FormData();
+          formData.append('file', file);
+
+          const uploadResponse = await axios.post('https://your-vercel-blob-endpoint/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           });
 
-          const result = response.data.analysisResult;
+          const result = uploadResponse.data.analysisResult;
           setAnalysisResult(result);
 
           // Call the onCapture function with the result
           onCapture(result);
 
         } catch (error) {
-          console.error('Error analyzing image', error);
+          console.error('Error uploading or analyzing image:', error);
         }
       }, 'image/jpeg');
     } else {

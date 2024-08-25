@@ -1,5 +1,6 @@
 {
-    "version": 2,
+    "version": "2",
+    "type": "module",
     "builds": [
       {
         "src": "api/vback.js",

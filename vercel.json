@@ -2,14 +2,15 @@
     "version": 2,
     "builds": [
       {
-        "src": "index.js",
+        "src": "vbackend/api/vback.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "index.js"
+        "src": "/api/vback",
+        "dest": "/vbackend/api/vback.js"
       }
     ]
   }
+  
