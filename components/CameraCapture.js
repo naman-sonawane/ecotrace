@@ -37,46 +37,43 @@ export default function CameraCapture({ onCapture }) {
   const captureImage = async () => {
     if (videoRef.current) {
       const video = videoRef.current;
-
+  
       // Create a canvas element
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-
+  
       // Draw the video frame to the canvas
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Convert canvas content to Blob for sending to server
-      canvas.toBlob(async (blob) => {
-        // Convert Blob to JPEG
-        const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-
-        // Send the image to the server
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-          const response = await axios.post('http://localhost:5000/analyze-image', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-
-          const result = response.data.analysisResult;
-          setAnalysisResult(result);
-
-          // Call the onCapture function with the result
-          onCapture(result);
-
-        } catch (error) {
-          console.error('Error analyzing image', error);
-        }
-      }, 'image/jpeg');
+  
+      // Convert canvas content to base64
+      const base64Image = canvas.toDataURL('image/jpeg');
+  
+      // Send the base64 image to the server
+      try {
+        const response = await axios.post('http://localhost:5000/analyze-image', {
+          image: base64Image,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        const result = response.data.analysisResult;
+        setAnalysisResult(result);
+  
+        // Call the onCapture function with the result
+        onCapture(result);
+  
+      } catch (error) {
+        console.error('Error analyzing image', error);
+      }
     } else {
       console.error('Error capturing image');
     }
   };
+  
 
   const stopCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
