@@ -1,3 +1,4 @@
+import Navbar from '@/components/navBar'
 import { RecomCards } from '@/components/recomCards';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -46,7 +47,10 @@ export default function Trace() {
         <title>EcoTrace 🌱 Trace</title>
       </Head>
       <main className="bg-gradient-to-b from-[#C3E798] to-[#83E70C] w-screen flex flex-col items-center pt-4 min-h-screen relative">
-        <div className="w-full max-w-screen flex flex-col items-center space-y-8">
+      <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
+      <Navbar/>
+        </div>
+        <div className="w-full max-w-screen flex flex-col items-center pt-28 space-y-8">
           <div className="w-full max-w-6xl space-y-8">
             {!loading && carbonFootprint === null && (
               <>

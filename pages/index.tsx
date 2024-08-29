@@ -1,3 +1,4 @@
+import Navbar from '@/components/navBar'
 import Head from 'next/head';
 import Image from "next/image";
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,9 @@ export default function Home() {
         <title>EcoTrace 🌱 Home</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-green-50">
+      <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
+      <Navbar/>
+        </div>
         <header className="w-full max-w-5xl text-center mb-12">
           <div className="mb-6 flex items-center justify-center">
             <Image src="/logo.png" alt="EcoTrace Logo" width={50} height={100} />

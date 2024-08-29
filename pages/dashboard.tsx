@@ -1,3 +1,4 @@
+import Navbar from '@/components/navBar'
 import Head from 'next/head';
 import { FaPen } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
@@ -82,8 +83,8 @@ export default function Home() {
         style={{ backgroundImage: 'url(https://images.pexels.com/photos/1423600/pexels-photo-1423600.jpeg?cs=srgb&dl=pexels-jplenio-1423600.jpg&fm=jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         {/* Navbar Placeholder */}
-        <div className="fixed top-0 left-0 w-full p-4 z-10">
-          <h1 className="text-2xl font-bold text-center text-white">[Insert Navbar]</h1>
+        <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
+      <Navbar/>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg mt-20 z-10">
