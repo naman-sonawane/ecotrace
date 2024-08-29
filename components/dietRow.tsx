@@ -5,8 +5,12 @@ import { FaCamera } from 'react-icons/fa';
 import CameraCapture from './CameraCapture';
 import Popup from '@/components/ui/popup';
 
-export default function DietRow() {
-  const [meals, setMeals] = useState<{ id: number; details: string }[]>([]);
+interface DietRowProps {
+  meals: { id: number; details: string }[]; // Add meals as a prop
+  setMeals: React.Dispatch<React.SetStateAction<{ id: number; details: string }[]>>;
+}
+
+export default function DietRow({ meals, setMeals }: DietRowProps) {
   const [newMealDetails, setNewMealDetails] = useState('');
   const [nextId, setNextId] = useState(1);
   const [showCamera, setShowCamera] = useState(false);
@@ -14,8 +18,8 @@ export default function DietRow() {
 
   const addMeal = (details: string) => {
     if (details.trim()) {
-      setMeals([...meals, { id: nextId, details }]);
-      setNextId(nextId + 1);
+      setMeals(prevMeals => [...prevMeals, { id: nextId, details }]);
+      setNextId(prevId => prevId + 1);
     }
   };
 
@@ -30,7 +34,6 @@ export default function DietRow() {
   const handleCapture = async (analysisResult: string) => {
     try {
       const mealDescription = analysisResult.trim();
-      console.log(mealDescription)
       if (mealDescription === "X") {
         setShowErrorPopup(true);
       } else {
@@ -44,22 +47,22 @@ export default function DietRow() {
   return (
     <div className="bg-white bg-opacity-80 backdrop-blur-lg p-6 rounded-lg shadow-md flex flex-col space-y-4 relative">
       <h2 className="text-2xl font-bold">Diet</h2>
-      {meals.length > 0 ? (
-        <div className="flex flex-wrap gap-4">
-          {meals.map((meal) => (
+      <div className="flex flex-wrap gap-4">
+        {meals.length > 0 ? (
+          meals.map((meal) => (
             <div key={meal.id} className="flex flex-col items-center">
-              <div className="flex items-center justify-center w-24 h-24 border-2 border-green-500 text-black rounded-full text-center text-sm p-2">
+              <div className="flex items-center justify-center w-24 h-24 shadow-lg bg-lime-300 text-black rounded-full text-center text-sm p-2">
                 <div className="flex flex-col items-center justify-center">
                   <span className="text-lg font-bold">{`Meal ${meal.id}`}</span>
                   <span className="text-gray-600">{meal.details}</span>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-gray-600">No meals for the day. Press Enter to add a new meal.</p>
-      )}
+          ))
+        ) : (
+          <p className="text-gray-600">No meals for the day. Press Enter to add a new meal.</p>
+        )}
+      </div>
       <div className="absolute top-4 right-4 flex space-x-2">
         <Tooltip title="Your today's meals will be considered to help estimate your eating habits over the span of a year." arrow>
           <button className="bg-gray-300 hover:bg-gray-500 text-black font-bold py-2 px-4 rounded-full">
