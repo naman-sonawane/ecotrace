@@ -2,6 +2,7 @@ import Navbar from '@/components/navBar'
 import Head from 'next/head';
 import Image from "next/image";
 import { Button } from '@/components/ui/button';
+import Link from 'next/link'; // Import the Link component from next/link
 
 export default function Home() {
   return (
@@ -10,8 +11,8 @@ export default function Home() {
         <title>EcoTrace 🌱 Home</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-green-50">
-      <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
-      <Navbar/>
+        <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
+          <Navbar />
         </div>
         <header className="w-full max-w-5xl text-center mb-12">
           <div className="mb-6 flex items-center justify-center">
@@ -33,9 +34,14 @@ export default function Home() {
             AI assistant for a sustainable future.
           </p>
           <p className="text-md my-4">Track, Reduce, and Thrive with AI-Powered Carbon Insights</p>
-          <a href="/trace"><Button>
-            See Your Impact
-          </Button></a>
+          {/* Updated Button */}
+          <Link href="/trace">
+            <a>
+              <Button>
+                See Your Impact
+              </Button>
+            </a>
+          </Link>
         </header>
 
         <section className="w-full max-w-5xl text-center mb-12">
@@ -45,7 +51,7 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="border rounded-lg p-6 bg-white shadow-md">
               <Image src="/diet.png" alt="Track Food Footprint" width={150} height={150} className="mb-4 w-full" />
-              <h3 className="text-2xl font-semibold mb-2">Track Your Food's Footprint</h3>
+              <h3 className="text-2xl font-semibold mb-2">Track Your Food&apos;s Footprint</h3>
               <p>Track meals with EcoTrace—scan for carbon impact and get actionable advice.</p>
             </div>
             <div className="border rounded-lg p-6 bg-white shadow-md">
@@ -70,7 +76,9 @@ export default function Home() {
         </section>
 
         <footer className="w-full max-w-5xl mt-10 text-center mb-12">
-          <a href="https://github.com/naman-sonawane/ecotrace"><p className="text-sm hover:text-emerald-500 text-gray-600 mb-4">Made with ✨ by Rugved & Naman</p></a>
+          <a href="https://github.com/naman-sonawane/ecotrace" target="_blank" rel="noopener noreferrer">
+            <p className="text-sm hover:text-emerald-500 text-gray-600 mb-4">Made with ✨ by Rugved & Naman</p>
+          </a>
         </footer>
       </main>
     </>

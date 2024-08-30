@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { FaPen } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for HTTP requests
+import Link from 'next/link'; // Import the Link component from next/link
 
 export default function Home() {
   const [carbonFootprint, setCarbonFootprint] = useState<number | null>(null);
@@ -84,7 +85,7 @@ export default function Home() {
       >
         {/* Navbar Placeholder */}
         <div className="fixed flex justify-center items-center top-0 w-full p-4 z-10">
-      <Navbar/>
+          <Navbar />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg mt-20 z-10">
@@ -92,12 +93,16 @@ export default function Home() {
           <div className="p-6 flex flex-col space-y-4">
             <h2 className="text-4xl font-bold">Welcome back.</h2>
             <p className="pl-4 text-sm text-gray-600">Track, Reduce, and Thrive with AI-Powered Carbon Insights.</p>
-            {/* New Button */}
-            <a href="/trace"><button
-              className="bg-green-500 text-white p-2 w-1/3 scale-100 hover:scale-110 transition-all rounded-md mt-4"
-            >
-              See Your Impact
-            </button></a>
+            {/* Updated Button */}
+            <Link href="/trace">
+              <a>
+                <button
+                  className="bg-green-500 text-white p-2 w-1/3 scale-100 hover:scale-110 transition-all rounded-md mt-4"
+                >
+                  See Your Impact
+                </button>
+              </a>
+            </Link>
           </div>
 
           {/* Top Right Card */}
