@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/analyze-image",
+        "dest": "/api/analyze-image.js"
+      },
+      {
+        "src": "/calculate",
+        "dest": "/api/calculate.js"
+      },
+      {
+        "src": "/ask-question",
+        "dest": "/api/ask-question.js"
+      }
+    ]
+  }
+  
