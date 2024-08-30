@@ -8,6 +8,17 @@ const model = genAI.getGenerativeModel({
 });
 
 module.exports = async (req, res) => {
+  // CORS configuration
+  res.setHeader('Access-Control-Allow-Origin', 'https://ecotrace-lake.vercel.app'); // Set to your frontend origin
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    // Handle preflight requests
+    res.status(200).end();
+    return;
+  }
+
   if (req.method === 'POST') {
     try {
       const { question } = req.body;
