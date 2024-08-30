@@ -7,7 +7,7 @@ const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
 });
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const { question } = req.body;

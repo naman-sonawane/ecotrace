@@ -11,8 +11,8 @@ const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
 });
 
-export default async (req, res) => {
-  if (req.method === 'POST') {
+module.exports = async (req, res) => {
+    if (req.method === 'POST') {
     try {
       const { image } = req.body;
 
