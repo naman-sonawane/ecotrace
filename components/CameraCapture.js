@@ -1,12 +1,10 @@
 // cameracapture.js
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
-
 export default function CameraCapture({ onCapture }) {
   const videoRef = useRef(null);
   const [isCapturing, setIsCapturing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
-
   useEffect(() => {
     const startCamera = async () => {
       try {
@@ -22,9 +20,7 @@ export default function CameraCapture({ onCapture }) {
         console.error('Error accessing camera', error);
       }
     };
-
     startCamera();
-
     return () => {
       if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject;
@@ -33,7 +29,6 @@ export default function CameraCapture({ onCapture }) {
       }
     };
   }, []);
-
   const captureImage = async () => {
     if (videoRef.current) {
       const video = videoRef.current;
@@ -46,26 +41,26 @@ export default function CameraCapture({ onCapture }) {
       // Draw the video frame to the canvas
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  
+
       // Convert canvas content to base64
       const base64Image = canvas.toDataURL('image/jpeg');
-  
+
       // Send the base64 image to the server
       try {
-        const response = await axios.post('http://localhost:5000/analyze-image', {
+        const response = await axios.post('https://ecotrace-edyp.vercel.app/analyze-image', {
           image: base64Image,
         }, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
-  
+
         const result = response.data.analysisResult;
         setAnalysisResult(result);
-  
+
         // Call the onCapture function with the result
         onCapture(result);
-  
+
       } catch (error) {
         console.error('Error analyzing image', error);
       }
@@ -73,7 +68,7 @@ export default function CameraCapture({ onCapture }) {
       console.error('Error capturing image');
     }
   };
-  
+
 
   const stopCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
@@ -83,7 +78,6 @@ export default function CameraCapture({ onCapture }) {
       setIsCapturing(false);
     }
   };
-
   return (
     <div>
       <video ref={videoRef} width="640" height="480" autoPlay />
@@ -94,7 +88,6 @@ export default function CameraCapture({ onCapture }) {
   >
     Capture
   </button>
-
   <button 
     onClick={stopCamera} 
     className="bg-gradient-to-r from-red-300 to-red-500 text-slate-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-300"
@@ -102,7 +95,6 @@ export default function CameraCapture({ onCapture }) {
     Stop
   </button>
 </div>
-
     </div>
   );
 }

@@ -36,11 +36,9 @@ export default function Home() {
           <p className="text-md my-4">Track, Reduce, and Thrive with AI-Powered Carbon Insights</p>
           {/* Updated Button */}
           <Link href="/trace">
-            <a>
               <Button>
                 See Your Impact
               </Button>
-            </a>
           </Link>
         </header>
 

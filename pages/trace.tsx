@@ -19,7 +19,7 @@ export default function Trace() {
   const handleCalculate = async () => {
     setLoading(true); // Show loading state
     try {
-      const response = await axios.post('http://localhost:5000/calculate', {
+      const response = await axios.post('https://ecotrace-edyp.vercel.app/calculate', {
         meals,
         transportation,
         dailyTravel,

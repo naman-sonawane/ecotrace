@@ -33,7 +33,7 @@ export default function Home() {
   const handleAskQuestion = async () => {
     try {
       console.log('clickeddd');
-      const response = await axios.post('http://localhost:5000/ask-question', { question });
+      const response = await axios.post('https://ecotrace-edyp.vercel.app/ask-question', { question });
       setAnswer(response.data.answer);
     } catch (error) {
       console.error('Error asking question:', error);
@@ -95,13 +95,11 @@ export default function Home() {
             <p className="pl-4 text-sm text-gray-600">Track, Reduce, and Thrive with AI-Powered Carbon Insights.</p>
             {/* Updated Button */}
             <Link href="/trace">
-              <a>
                 <button
                   className="bg-green-500 text-white p-2 w-1/3 scale-100 hover:scale-110 transition-all rounded-md mt-4"
                 >
                   See Your Impact
                 </button>
-              </a>
             </Link>
           </div>
 
